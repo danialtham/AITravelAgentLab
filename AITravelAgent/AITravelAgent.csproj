@@ -5,7 +5,18 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>8e255a9e-79e5-42f5-8b6a-68521a3b83df</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Plugins\ConvertCurrency\currencies.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Plugins\ConvertCurrency\currencies.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Azure.AI.OpenAI" Version="2.2.0-beta.1" />
