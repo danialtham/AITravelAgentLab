@@ -4,6 +4,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using Microsoft.Extensions.Configuration;
+using AITravelAgent;
 using AITravelAgent.Plugins.ConvertCurrency;
 
 var builder = new ConfigurationBuilder()
@@ -16,8 +17,9 @@ string yourApiKey = configuration["AZURE_OPENAI_API_KEY_4O"];
 
 var kernel = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(yourDeploymentName, yourEndpoint, yourApiKey).Build();
 
-//var prompts = kernel.ImportPluginFromPromptDirectory("Prompts");
 kernel.ImportPluginFromType<CurrencyConverter>();
+kernel.Plugins.AddFromType<FlightBookingPlugin>("FlightBooking");
+kernel.FunctionInvocationFilters.Add(new PermissionFilter());
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
@@ -27,8 +29,6 @@ OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
 
 string hbprompt = """
     <message role="system">Instructions: Before providing the the user with a travel itinerary, ask how many days their trip is.</message>
-    <message role="user">I'm going to Rome. Can you create an itinerary for me?</message>
-    <message role="assistant">Sure, how many days is your trip?</message>
     <message role="user">{{input}}</message>
 """;
 

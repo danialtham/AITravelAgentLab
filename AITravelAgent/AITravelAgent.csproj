@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <None Remove="Plugins\ConvertCurrency\currencies.txt" />
+    <None Remove="Plugins\ConvertCurrency\flights.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Plugins\ConvertCurrency\currencies.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="flights.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

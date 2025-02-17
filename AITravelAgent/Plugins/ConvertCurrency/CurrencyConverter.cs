@@ -29,7 +29,7 @@ namespace AITravelAgent.Plugins.ConvertCurrency
             }
             else
             {
-                double amountInUSD = Double.Parse(amount) * baseCurrency.USDPerUnit;
+                double amountInUSD = double.Parse(amount) * baseCurrency.USDPerUnit;
                 double result = amountInUSD * targetCurrency.UnitsPerUSD;
                 return result + targetCurrencyCode;
             }
